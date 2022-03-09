@@ -13,6 +13,11 @@ router.get("/", (req, res) => {
         attributes: ["id", "title", "post_content"]
 
       },
+      {
+        model: Comment,
+        as: "comments",
+        attributes: ["id", "comment_text", "post_id"]
+      }
 
     ]
   }).then((dbUserData) => {
@@ -37,6 +42,11 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "title", "post_content"]
 
       },
+      {
+        model: Comment,
+        as: "comments",
+        attributes: ["id", "comment_text", "post_id"]
+      }
 
     ]
   }

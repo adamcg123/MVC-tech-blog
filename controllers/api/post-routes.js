@@ -6,10 +6,19 @@ const router = require("express").Router();
 
 router.get("/", (req, res) => {
   Post.findAll({
-    attributes: ["id", "title", "post_content", "user_id"]
-  }).then((dbPostData) => {
-    res.json(dbPostData)
+    attributes: ["id", "title", "post_content", "user_id"],
+
+    include: [
+      {
+        model: Comment,
+        as: "comments",
+        attributes: ["id", "comment_text", "user_id"]
+      }
+    ]
   })
+    .then((dbPostData) => {
+      res.json(dbPostData)
+    })
     .catch((err) => {
       console.log(err)
       res.status(500).json(err)
@@ -17,15 +26,21 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Post.findOne(
-    {
-      where: {
-        id: req.params.id
-      },
+  Post.findOne({
+    where: {
+      id: req.params.id
     },
-    {
-      attributes: ["id", "title", "post_content", "user_id"],
-    }
+
+
+    attributes: ["id", "title", "post_content", "user_id"],
+    include: [
+      {
+        model: Comment,
+        as: "comments",
+        attributes: ["id", "comment_text", "user_id"]
+      }
+    ]
+  }
   )
     .then((dbPostData) => {
       if (!dbPostData) {
