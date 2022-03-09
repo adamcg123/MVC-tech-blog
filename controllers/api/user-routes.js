@@ -4,7 +4,17 @@ const { User, Post, Comment } = require("../../models");
 
 router.get("/", (req, res) => {
   User.findAll({
-    attributes: ["id", "username", "email", "password"]
+    attributes: ["id", "username", "email", "password"],
+
+    include: [
+      {
+        model: Post,
+        as: "posts",
+        attributes: ["id", "title", "post_content"]
+
+      },
+
+    ]
   }).then((dbUserData) => {
     res.json(dbUserData)
   })
@@ -15,15 +25,21 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  User.findOne(
-    {
-      where: {
-        id: req.params.id
-      },
+  User.findOne({
+    where: {
+      id: req.params.id
     },
-    {
-      attributes: ["id", "username", "email", "password"]
-    }
+    attributes: ["id", "username", "email", "password"],
+    include: [
+      {
+        model: Post,
+        as: "posts",
+        attributes: ["id", "title", "post_content"]
+
+      },
+
+    ]
+  }
   )
     .then((dbUserData) => {
       if (!dbUserData) {

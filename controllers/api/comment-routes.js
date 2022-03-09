@@ -75,10 +75,10 @@ router.put('/:id', (req, res) => {
         })
 });
 
-router.delete("/", (req, res) => {
+router.delete("/:id", (req, res) => {
     Comment.destroy({
         where: {
-            id: req.id.params
+            id: req.params.id
         }
     }).then((dbCommentData) => {
         if (!dbCommentData) {
