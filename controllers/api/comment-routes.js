@@ -3,7 +3,14 @@ const { User, Post, Comment } = require("../../models");
 
 router.get("/", (req, res) => {
     Comment.findAll({
-        attributes: ["id", "comment_text", "post_id", "user_id"]
+        attributes: ["id", "comment_text", "post_id", "user_id"],
+        include: [
+            {
+                model: User,
+                as: "user",
+                attributes: ["username"]
+            }
+        ]
     }).then((dbCommentData) => {
         res.json(dbCommentData)
     })
@@ -19,9 +26,14 @@ router.get("/:id", (req, res) => {
             where: {
                 id: req.params.id
             },
-        },
-        {
-            attributes: ["id", "comment_text", "post_id", "user_id"]
+            attributes: ["id", "comment_text", "post_id", "user_id"],
+            include: [
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["username"]
+                }
+            ]
         })
         .then((dbCommentData) => {
             if (!dbCommentData) {

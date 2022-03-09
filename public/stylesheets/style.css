@@ -21,7 +21,7 @@ body {
   font-size: 24px;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h5,
@@ -30,7 +30,7 @@ h6 {
   margin: 0;
   color: var(--dark);
   line-height: 1.25;
-}
+} */
 
 .link-color {
   color: var(--tertiary);
@@ -51,6 +51,33 @@ main {
   flex-direction: column;
 }
 
+.single-post-padding {
+  padding: 50px;
+}
+
+.post-text-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#comment-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.single-post-padding {
+  padding: 50px;
+}
+.post-text-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#comment-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 p {
   font-size: 1.2rem;
 }
@@ -62,7 +89,9 @@ p {
   color: var(--primary);
   font-size: 2rem;
 }
-
+a {
+  text-decoration: none;
+}
 .btn {
   font-size: 1.3rem;
   text-decoration: none;
@@ -158,12 +187,22 @@ p {
 .card-header {
   color: var(--primary);
   background-color: var(--dark);
-  padding: 1%;
+  padding: 0.5% 10%;
+  display: block;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
 
 .card-body {
   padding: 1%;
+}
+
+.card h3 {
+  display: inline;
+}
+.card h4 {
+  display: inline;
+  background-color: var(--dark);
+  float: right;
 }
 
 h4 {

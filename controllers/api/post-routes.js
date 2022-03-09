@@ -38,8 +38,8 @@ router.get("/:id", (req, res) => {
         model: Comment,
         as: "comments",
         attributes: ["id", "comment_text", "user_id"]
-      }
-    ]
+      },
+    ],
   }
   )
     .then((dbPostData) => {

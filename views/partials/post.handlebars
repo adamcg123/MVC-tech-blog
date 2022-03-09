@@ -1,8 +1,12 @@
-<div class="card">
-  <div class="card-header">
-    <h4>This is the card title </h4>
-    <p>Posted by adam on 3/9/22</p>
-  </div>
-  <p class="">This is the post content</p>
+<a href="/viewpost/{{id}}">
+  <div class="card">
 
-</div>
+    <h3 class="card-header">{{title}} </h3>
+    <h4 class="card-header">Posted by {{user.username}} today</h4>
+
+    <div class="container">
+
+      <p class="post-text">{{post_content}}</p>
+    </div>
+  </div>
+</a>
