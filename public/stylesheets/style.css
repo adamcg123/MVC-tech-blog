@@ -1,5 +1,5 @@
 :root {
-  --primary: #ccdad1;
+  --primary: #bae1c8;
   --secondary: #dce9d5;
   --tertiary: #6c7474;
   --light-dark: #a1a0a1;
@@ -55,6 +55,14 @@ p {
   font-size: 1.2rem;
 }
 
+.nav-link {
+  text-decoration: none;
+  padding: 1%;
+  margin: 1%;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
 .btn {
   font-size: 1.3rem;
   text-decoration: none;
@@ -104,7 +112,8 @@ p {
   font-size: 3rem;
   background-color: var(--primary);
   color: var(--dark);
-  padding: 0 10px;
+  padding: 0.4% 1%;
+  margin: 0 2%;
   display: inline-block;
   border-radius: var(--border-radius);
   box-shadow: 6px 5px var(--light-dark);
@@ -165,7 +174,6 @@ h4 {
 }
 
 .link {
-  color: var(--light-dark);
 }
 
 .login-link {
@@ -173,9 +181,9 @@ h4 {
 }
 
 .nav {
-  padding: 10px;
   line-height: 1.25;
   float: top;
+  padding: 1% 0.5%;
 }
 
 footer {
