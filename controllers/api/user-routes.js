@@ -1,6 +1,5 @@
-const { User } = require("../../models");
-
 const router = require("express").Router();
+const { User, Post, Comment } = require("../../models");
 
 
 router.get("/", (req, res) => {
@@ -24,9 +23,10 @@ router.get("/:id", (req, res) => {
     },
     {
       attributes: ["id", "username", "email", "password"]
-    })
+    }
+  )
     .then((dbUserData) => {
-      if (dbUserData) {
+      if (!dbUserData) {
         res.status(404).json({ message: "No user found with this id" });
         return;
       }
@@ -54,8 +54,30 @@ router.post("/", (req, res) => {
 
 });
 
-router.put("/", (req, res) => {
+router.put("/:id", (req, res) => {
+  User.update(
+    {
+      username: req.body.username,
+      password: req.body.password
 
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'no user with that id was found' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    })
 });
 
 router.delete("/", (req, res) => {

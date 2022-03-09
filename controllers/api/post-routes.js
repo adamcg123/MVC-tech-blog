@@ -1,6 +1,6 @@
-const router = require("express").Router();
-const { Post, User, Comment } = require("../../models");
 
+const { Post, User, Comment } = require("../../models");
+const router = require("express").Router();
 
 
 
@@ -22,10 +22,13 @@ router.get("/:id", (req, res) => {
       where: {
         id: req.params.id
       },
-      attributes: ["id", "title", "post_content", "user_id"]
-    })
+    },
+    {
+      attributes: ["id", "title", "post_content", "user_id"],
+    }
+  )
     .then((dbPostData) => {
-      if (dbPostData) {
+      if (!dbPostData) {
         res.status(404).json({ message: "No Post found with this id" });
         return;
       }
@@ -39,12 +42,13 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   Post.create({
-    title: "test post",
-    body: "test body",
-    user_id: "1"
-  }).then((dbPostData) => {
-    res.json(dbPostData)
+    title: req.body.title,
+    post_content: req.body.post_content,
+    user_id: req.body.user_id
   })
+    .then((dbPostData) => {
+      res.json(dbPostData)
+    })
     .catch((err) => {
       console.log(err)
       res.status(500).json(err)
@@ -52,17 +56,38 @@ router.post("/", (req, res) => {
 
 });
 
-router.put("/", (req, res) => {
-
+router.put("/:id", (req, res) => {
+  Post.update(
+    {
+      title: req.body.title,
+      post_content: req.body.post_content,
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(dbCommentData => {
+      if (!dbCommentData) {
+        res.status(404).json({ message: 'no comment with that id was found' });
+        return;
+      }
+      res.json(dbCommentData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    })
 });
 
 router.delete("/:id", (req, res) => {
   Post.destroy({
     where: {
-      id: req.id.params
+      id: req.params.id
     }
   }).then((dbPostData) => {
-    if (dbPostData) {
+    if (!dbPostData) {
       res.status(404).json({ message: "No Post found with this id" });
       return;
     }
