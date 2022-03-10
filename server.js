@@ -1,10 +1,21 @@
 const express = require("express");
 const path = require("path");
-
 const controller = require("./controllers");
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
 const sequelize = require("./config/connection");
+const session = require("express-session");
+const SequlizeStore = require("connect-session-sequelize")(session.Store);
+
+const sess = {
+    secret: "super secret secret",
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequlizeStore({
+        db: sequelize,
+    }),
+};
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,6 +23,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(session(sess));
 
 app.use("/", controller);
 

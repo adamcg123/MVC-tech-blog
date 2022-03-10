@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
             }
             const posts = dbPostData.map((post) => post.get({ plain: true }));
             console.log(posts);
-            res.render("homepage", { posts })
+            res.render("homepage", { posts, loggedIn: req.session.loggedIn })
         })
         .catch((err) => {
             console.log(err)
@@ -71,7 +71,12 @@ router.get('/viewpost/:id', (req, res) => {
             }
             const post = dbPostData.get({ plain: true });
             console.log(post)
-            res.render("single-post", { post })
+            const myPost = post.user_id == req.session.user_id;
+            res.render("single-post", {
+                post,
+                loggedIn: req.session.loggedIn,
+                currentUser: myPost,
+            })
         })
         .catch((err) => {
             console.log(err)
@@ -80,14 +85,18 @@ router.get('/viewpost/:id', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.render("login")
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+    res.render('login')
 })
 
 router.get('/dashboard', (req, res) => {
     Post.findAll({
-        // where: {
-        //     user_id: "1",
-        // },
+        where: {
+            user_id: req.session.user_id,
+        },
         attributes: ["id", "title", "post_content", "user_id"],
 
         include: [
@@ -118,7 +127,7 @@ router.get('/dashboard', (req, res) => {
             }
             const posts = dbPostData.map((post) => post.get({ plain: true }));
             console.log(posts);
-            res.render("dashboard", { posts })
+            res.render("dashboard", { posts, loggedIn: req.session.loggedIn })
         })
         .catch((err) => {
             console.log(err)
@@ -126,7 +135,7 @@ router.get('/dashboard', (req, res) => {
         })
 })
 router.get("/post", (req, res) => {
-    res.render("create-post");
+    res.render("create-post", { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;
