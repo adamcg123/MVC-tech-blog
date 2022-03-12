@@ -4,24 +4,26 @@
   <h4 class="card-header">Posted by
     {{post.user.username}}
     on
-    <p>{{post.created_at}}</p>
+    <p>{{format_date post.created_at}}</p>
   </h4>
 
   <div class="container">
-    <h3>{{created_at}}</h3>
+
     <p class="post-text">{{post.post_content}}</p>
   </div>
 </div>
 
-<form class="comment-form card">
-  <h3 class="card-header">Add your comment!</h3>
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
+{{#if loggedIn}}
+  <form class="comment-form card">
+    <h3 class="card-header">Add your comment!</h3>
+    <div>
+      <textarea name="comment-body"></textarea>
+    </div>
 
-  <button class="alt-btn" type="submit">add comment</button>
+    <button class="alt-btn" type="submit">add comment</button>
 
-</form>
+  </form>
+{{/if}}
 
 <div class="comments">
   {{#each post.comments}}
@@ -29,7 +31,7 @@
       <div class="card-header">comment by
         {{user.username}}
         on
-        {{created_at}}
+        {{format_date created_at}}
       </div>
       <div class="text">
         {{comment_text}}
@@ -37,4 +39,6 @@
     </section>
   {{/each}}
 </div>
-<script src="/javascript/comment.js"></script>
+{{#if loggedIn}}
+  <script src="/javascript/comment.js"></script>
+{{/if}}

@@ -12,10 +12,13 @@
         <div>
           <div class="nav">
             <a class="link nav-link" href="/">Home</a>
+            {{#if loggedIn}}
+              <a class="link nav-link" href="/dashboard">Dashboard</a>
 
-            <a class="link nav-link" href="/dashboard">Dashboard</a>
-            <a class="link nav-link" id="logout">Logout</a>
-            <a class="link nav-link" href="/login">Login</a>
+              <a class="link nav-link" id="logout">Logout</a>
+            {{else}}
+              <a class="link nav-link" href="/login">Login</a>
+            {{/if}}
           </div>
         </div>
         <h1 class="app-title">The Tech Blog</h1>
@@ -25,7 +28,9 @@
         {{{body}}}
       </main>
     </div>
-    <script src="/javascript/logout.js"></script>
+    {{#if loggedIn}}
+      <script src="/javascript/logout.js"></script>
+    {{/if}}
   </body>
 
 </html>
