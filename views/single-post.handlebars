@@ -1,0 +1,40 @@
+<div class="card">
+
+  <h3 class="card-header">{{post.title}} </h3>
+  <h4 class="card-header">Posted by
+    {{post.user.username}}
+    on
+    <p>{{post.created_at}}</p>
+  </h4>
+
+  <div class="container">
+    <h3>{{created_at}}</h3>
+    <p class="post-text">{{post.post_content}}</p>
+  </div>
+</div>
+
+<form class="comment-form card">
+  <h3 class="card-header">Add your comment!</h3>
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+
+  <button class="alt-btn" type="submit">add comment</button>
+
+</form>
+
+<div class="comments">
+  {{#each post.comments}}
+    <section class="card">
+      <div class="card-header">comment by
+        {{user.username}}
+        on
+        {{created_at}}
+      </div>
+      <div class="text">
+        {{comment_text}}
+      </div>
+    </section>
+  {{/each}}
+</div>
+<script src="/javascript/comment.js"></script>

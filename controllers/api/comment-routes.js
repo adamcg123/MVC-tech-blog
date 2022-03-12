@@ -36,19 +36,19 @@ router.get("/:id", (req, res) => {
         })
 });
 
-router.post("/", (req, res) => {
-    Comment.create({
-        comment_text: req.body.comment_text,
-        user_id: req.body.user_id,
-        post_id: req.body.post_id
-    })
-        .then((dbCommentData) => {
-            res.json(dbCommentData)
+router.post('/', (req, res) => {
+    if (req.session) {
+        Comment.create({
+            comment_text: req.body.comment_text,
+            post_id: req.body.post_id,
+            user_id: req.session.user_id
         })
-        .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+            .then(dbCommentData => res.json(dbCommentData))
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            });
+    }
 });
 
 router.put('/:id', (req, res) => {
