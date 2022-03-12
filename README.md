@@ -33,5 +33,4 @@
   npm init, npm i, npm start
 
   ## Additional Info:
-  - Github: [undefined](https://github.com/undefined)
-  - Email:  
+  - Github: [adamcg123](https://github.com/adamcg123)
