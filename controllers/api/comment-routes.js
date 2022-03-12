@@ -5,12 +5,12 @@ router.get("/", (req, res) => {
     Comment.findAll({
         attributes: ["id", "comment_text", "post_id", "user_id"]
     }).then((dbCommentData) => {
-        res.json(dbCommentData)
+        res.json(dbCommentData);
     })
         .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 router.get("/:id", (req, res) => {
@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
-        })
+        });
 });
 
 router.delete("/:id", (req, res) => {
@@ -85,11 +85,11 @@ router.delete("/:id", (req, res) => {
             res.status(404).json({ message: "No user found with this id" });
             return;
         }
-        res.json(dbCommentData)
+        res.json(dbCommentData);
     })
         .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 module.exports = router;

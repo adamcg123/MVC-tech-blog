@@ -1,8 +1,5 @@
-
 const { Post, User, Comment } = require("../../models");
 const router = require("express").Router();
-
-
 
 router.get("/", (req, res) => {
   Post.findAll({
@@ -22,7 +19,7 @@ router.get("/", (req, res) => {
     .catch((err) => {
       console.log(err)
       res.status(500).json(err)
-    })
+    });
 });
 
 router.get("/:id", (req, res) => {
@@ -40,19 +37,18 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "comment_text", "user_id"]
       }
     ]
-  }
-  )
+  })
     .then((dbPostData) => {
       if (!dbPostData) {
         res.status(404).json({ message: "No Post found with this id" });
         return;
       }
-      res.json(dbPostData)
+      res.json(dbPostData);
     })
     .catch((err) => {
-      console.log(err)
-      res.status(500).json(err)
-    })
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post("/", (req, res) => {
@@ -62,13 +58,12 @@ router.post("/", (req, res) => {
     user_id: req.session.user_id
   })
     .then((dbPostData) => {
-      res.json(dbPostData)
+      res.json(dbPostData);
     })
     .catch((err) => {
-      console.log(err)
-      res.status(500).json(err)
-    })
-
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.put("/:id", (req, res) => {
@@ -101,16 +96,17 @@ router.delete("/:id", (req, res) => {
     where: {
       id: req.params.id
     }
-  }).then((dbPostData) => {
-    if (!dbPostData) {
-      res.status(404).json({ message: "No Post found with this id" });
-      return;
-    }
-    res.json(dbPostData)
   })
-    .catch((err) => {
-      console.log(err)
-      res.status(500).json(err)
+    .then((dbPostData) => {
+      if (!dbPostData) {
+        res.status(404).json({ message: "No Post found with this id" });
+        return;
+      }
+      res.json(dbPostData);
     })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 module.exports = router;
