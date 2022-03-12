@@ -1,49 +1,30 @@
-// An index file to gather the models and export them for use
-
-// User model
-const User = require('./User');
-// Post model
+// import all models
 const Post = require('./Post');
-// Comment model
+const User = require('./User');
+
 const Comment = require('./Comment');
 
-// Create associations between the models
-// User-Post relationship
+// create associations
 User.hasMany(Post, {
-    foreignKey: 'user_id'
+    foreignKey: "user_id",
 });
-//Post-User relationship
 Post.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: "user_id",
 });
-
-// Comment-User relationship
+//associations for the commments
 Comment.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'cascade',
-    hooks:true
+    foreignKey: "user_id",
 });
 
-// Comment-Post relationship
 Comment.belongsTo(Post, {
-    foreignKey: 'post_id',
-    onDelete: 'cascade',
-    hooks: true
+    foreignKey: "post_id",
 });
 
-// User-Comment relationsihp
 User.hasMany(Comment, {
-    foreignKey: 'user_id',
-    onDelete: 'cascade',
-    hooks:true
+    foreignKey: "user_id",
 });
 
-// Post-Comment relationship
 Post.hasMany(Comment, {
-    foreignKey: 'post_id',
-    onDelete: 'cascade',
-    hooks:true
-})
-
-// Export the modules
+    foreignKey: "post_id",
+});
 module.exports = { User, Post, Comment };

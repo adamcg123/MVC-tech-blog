@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { User, Post, Comment } = require("../models");
-const sequelize = require("../config/connection");
+const sequelize = require('../config/connection');
+const { Post, User, Comment, Vote } = require('../models');
 
 router.get("/", (req, res) => {
     Post.findAll({
@@ -19,21 +19,15 @@ router.get("/", (req, res) => {
             },
         ],
     })
-        .then((dbPostData) => {
-            if (!dbPostData) {
-                res.status(404).json({ message: "No Post found with this id" });
-                return;
-            }
-            const posts = dbPostData.map((post) => post.get({ plain: true }));
-            console.log(posts);
-            res.render("homepage",
-                // { posts, loggedIn: req.session.loggedIn }
-            )
+        .then(dbPostData => {
+            const posts = dbPostData.map(post => post.get({ plain: true }));
+
+            res.render('homepage', { posts });
         })
-        .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 
@@ -87,6 +81,12 @@ router.get("/", (req, res) => {
 // });
 
 router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        console.log('already logged in')
+        return;
+    }
+
     res.render('login');
 });
 

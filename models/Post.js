@@ -6,7 +6,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // the Post model extends the sequelize model 
-class Post extends Model {}
+class Post extends Model { }
 // define the table columns and configuration, similar to the setup for the User model
 Post.init(
     {
@@ -20,13 +20,9 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        post_text: {
+        post_content: {
             type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                // post must be at least one character long
-                len: [1]
-            }
+            allowNull: true,
         },
         user_id: {
             type: DataTypes.INTEGER,
