@@ -1,20 +1,21 @@
-<div class="card">
+<div class="logincard">
   <form class="login-form">
     <div>
-      <label for="email-login">email:</label>
-      <input type="text" id="email-login" />
+      <label class="card-header" for="username-login">username:</label>
+      <input type="text" id="username-login" />
     </div>
     <div>
-      <label for="password-login">password:</label>
+      <label class="card-header" for="password-login">password:</label>
       <input type="password" id="password-login" />
     </div>
     <div>
       <button type="submit">login</button>
+      <a href="/signup">Or signup</a>
     </div>
   </form>
 
 </div>
-<div class="card">
+{{! <div class="card">
   <form class="signup-form">
     <div>
       <label for="username-signup">username:</label>
@@ -32,5 +33,6 @@
       <button type="submit">signup</button>
     </div>
   </form>
-</div>
+</div>}}
+
 <script src="/javascript/login.js"></script>
