@@ -6,7 +6,7 @@
 
   ## Description
 
-  this is a MVC app that allows users to create a account, login, make and edit post, delete post and comment on others post. so its basically a blog app.
+  this is a MVC app that allows users to create a account, login, make and edit post, delete post and comment on others post. so its basically a blog app.Some of the tech used was javascript, node, express, dotenv, mysql, sequalize, bcrypt and handlebars
 
   ## Table of contents
   * [Installation](#installation)
